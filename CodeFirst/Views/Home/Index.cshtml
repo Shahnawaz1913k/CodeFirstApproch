@@ -9,6 +9,36 @@
     <a asp-action="Create" class="btn btn-primary">Add New Student</a>
 </p>
 
+@{
+    if (TempData["success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["success"]
+        </div>
+    }
+    if (TempData["Update_success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show d-flex justify-content-between align-items-center" 
+         role="alert" id="successAlert">
+        <span>@TempData["Update_success"]</span>
+        <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    }
+
+}
+
+@section Scripts {
+    <script>
+        // Auto-hide after 5 seconds
+        setTimeout(function () {
+            var alertBox = document.getElementById("successAlert");
+            if (alertBox) {
+                var bsAlert = new bootstrap.Alert(alertBox);
+                bsAlert.close();
+            }
+        }, 5000);
+    </script>
+}
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -20,19 +50,19 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var student in Model)
-    {
-        <tr>
-            <td>@student.FullName</td>
-            <td>@student.StudentAge</td>
-            <td>@student.StudentGender</td>
-            <td>@student.StudentStandard</td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@student.StudentId" class="btn btn-sm btn-warning">Edit</a>
-                <a asp-action="Details" asp-route-id="@student.StudentId" class="btn btn-sm btn-info">Details</a>
-                <a asp-action="Delete" asp-route-id="@student.StudentId" class="btn btn-sm btn-danger">Delete</a>
-            </td>
-        </tr>
-    }
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.FullName</td>
+                <td>@student.StudentAge</td>
+                <td>@student.StudentGender</td>
+                <td>@student.StudentStandard</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@student.StudentId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@student.StudentId" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@student.StudentId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
